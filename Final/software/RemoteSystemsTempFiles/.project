@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>RemoteSystemsTempFiles</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.rse.ui.remoteSystemsTempNature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>usb_kb</name>
+			<type>2</type>
+			<location>C:/Users/diego/Downloads/Lab62_v2/software/usb_kb</location>
+		</link>
+	</linkedResources>
+</projectDescription>

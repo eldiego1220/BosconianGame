@@ -1,0 +1,103 @@
+module spaceship(
+    input logic VGA_Clk,
+    input logic [9:0] DrawX, DrawY,
+    input logic draw_enable,
+    input [3:0] direction,
+    output logic [7:0] Red, Green, Blue
+
+);
+
+always_comb begin
+    case (direction):   
+
+        4'b1000: begin
+            Red   = R_ship_up;
+            Green = G_ship_up;
+            Blue  = B_ship_up;
+        end
+        4'b0100: begin
+            Red   = R_ship_down;
+            Green = G_ship_down;
+            Blue  = B_ship_down;
+        end
+        4'b0010: begin
+            Red   = R_ship_right;
+            Green = G_ship_right;
+            Blue  = B_ship_right;
+        end
+        4'b0001: begin
+            Red   = R_ship_left;
+            Green = G_ship_left;
+            Blue  = B_ship_left;
+        end
+        default begin
+        Red   = 8'hff;
+        Green = 8'h55;
+        Blue  = 8'h00;
+        end
+    endcase
+end
+
+logic [7:0] R_ship_up, G_ship_up, B_ship_up;
+white_spaceship_up_example white_ship_up(
+    .vga_clk(VGA_Clk),
+    .DrawX(DrawX),
+    .DrawY(DrawY),
+    .blank(blank),
+    .red(R_ship_up),
+    .green(G_ship_up),
+    .blue(B_ship_up)
+);          
+
+logic [7:0] R_ship_down, G_ship_down, B_ship_down;
+white_spaceship_down_example white_ship_down(
+       .vga_clk(VGA_Clk),
+    .DrawX(DrawX),
+    .DrawY(DrawY),
+    .blank(blank),
+    .red(R_ship_down),
+    .green(G_ship_down),
+    .blue(B_ship_down)
+);          
+
+logic [7:0] R_ship_right, G_ship_right, B_ship_right;
+white_spaceship_right_example white_ship_right(
+       .vga_clk(VGA_Clk),
+    .DrawX(DrawX),
+    .DrawY(DrawY),
+    .blank(blank),
+    .red(R_ship_right),
+    .green(G_ship_right),
+    .blue(B_ship_right)
+);          
+
+logic [7:0] R_ship_left, G_ship_left, B_ship_left;
+white_spaceship_left_example white_ship_left(
+       .vga_clk(VGA_Clk),
+    .DrawX(DrawX),
+    .DrawY(DrawY),
+    .blank(blank),
+    .red(R_ship_left),
+    .green(G_ship_left),
+    .blue(B_ship_left)
+);                
+ 
+ 
+// logic green_base_on;
+// logic[10:0] green_base_corner_x = 200;
+// logic[10:0] green_base_corner_y = 200;
+// logic[10:0] green_base_size_x = 64;
+// logic[10:0] green_base_size_y = 72;
+
+// logic [7:0] R_green_base, G_green_base, B_green_base;
+// green_enemy_base_example green_base(
+//        .vga_clk(VGA_Clk),
+//     .DrawX(DrawX),
+//     .DrawY(DrawY),
+//     .blank(blank),
+//     .red(R_green_base),
+//     .green(G_green_base),
+//     .blue(B_green_base)
+// );                  
+ 
+endmodule;

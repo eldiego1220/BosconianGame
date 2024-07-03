@@ -1,0 +1,29 @@
+module enemy_bullet(
+    input frame_clk, 
+    input [9:0] enemy_base_tl_x, enemy_base_tl_y, // TL Corner of base that is always moving
+    
+    output [9:0] enemy_bullet_x, enemy_bullet_y,
+    output shoot_bullet
+);
+
+parameter [9:0] enemy_base_x_center = enemy_base_x + 32;
+parameter [9:0] enemy_base_y_center = enemy_base_y + 36;
+parameter [9:0] Ship_Center_X = 320;  // Center position on the X axis
+parameter [9:0] Ship_Center_Y = 240;  // Center position on the Y axis
+logic shoot_bullet;
+
+
+always_ff @(posedge frame_clk) begin
+
+    if (shoot_bullet == 1'b0) begin
+        if (enemy_base_y_center + 100 >= Ship_Center_Y || Ship_Center_Y - 100 <= enemy_base_y_center) begin
+            shoot_bullet <= 1'b1;
+        end
+    end else begin
+       enemy_bullet_y <= enemy_base_y_center;
+       enemy_bullet_x <= enemy_bullet_x + 1;
+    end
+
+end
+
+endmodule   

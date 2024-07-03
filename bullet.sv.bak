@@ -1,0 +1,9 @@
+module projectile (
+	input logic start_projectile, frame_clk,
+	input logic [3:0] direction, // for combinations of directions: up, down, diagonals
+	input logic [9:0] starting_x, starting_y, // where the position of the ship is in time
+	
+	output logic [9:0] x_pos, y_pos,
+	output logic exists
+	
+);

@@ -1,0 +1,71 @@
+module State_Controller (
+    input Reset,
+    input [9:0] DrawX, DrawY,
+    input [7:0] keycode,
+    input       
+      shoot_bullet,
+      
+      moving,
+      VGA_Clk,
+      blank,
+      sys_clk,
+      frame_clk,
+    output Red, Green, Blue
+);
+
+enum logic [1:0] {START_SCREEN, PLAY, WIN, LOSE} State, Next_state;
+
+logic cleared, collided;
+
+always_ff @ (posedge frame_clk ) begin
+    if (Reset) 
+		State <= START_SCREEN;
+	else 
+		State <= Next_state;
+end
+
+always_comb begin
+    Next_state = State;
+
+    case (State) :
+        START_SCREEN:
+        
+            if (moving)
+                Next_state = PLAY;
+
+            // Change this to start screen ROM when done
+            Red = Red_game;
+            Blue = Blue_game;
+            Green = Green_game;
+        PLAY:
+            Red = Red_game;
+            Blue = Blue_game;
+            Green = Green_game;
+            if (cleared) begin
+                Next_state = WIN;
+            end
+            else if (collided) begin
+                Next_state = LOSE;
+            end
+            else begin
+                Next_state = PLAY;
+            end
+        WIN:
+
+        LOSE:
+            Red = Red_game;
+            Blue = Blue_game;
+            Green = Green_game;
+        default: 
+
+    endcase
+end
+
+logic [7:0] Red_game, Green_game, Blue_game, Red_start, Green_start, Blue_start, Red_end, Green_end, Blue_end;
+
+display_game game (.moving(moving), .VGA_Clk(VGA_Clk), .blank(blank), .keycode(keycode), .frame_clk(frame_clk),
+	.DrawX(DrawX), .DrawY(DrawY), .sys_clk(sys_clk), .Red(Red_game), .Green(Green_game), .Blue(Blue_game));
+	
+// instantiate Color Mapper here, 
+// instantiate 
+endmodule
